@@ -204,40 +204,22 @@ void load_from_file(simulation &s, std::string filename)
 
 void compforces(simulation &s, OmpLoop &omp)
 {
+  // using function provided
+  omp.parfor(0, s.nbpart, 1, [&](size_t to)
+             {
+    for (size_t from = 0; from < s.nbpart; ++from) {
+      if (from == to) continue;
+      update_force(s, from, to); 
+    } });
+}
+
+void paralelogram(simulation &s, double dt, OmpLoop &omp)
+{
+  // Just gonna use the functions provided
   omp.parfor(0, s.nbpart, 1, [&](size_t i)
              {
-    
-    // reset/init force
-    double fx = 0.0;
-    double fy = 0.0;
-    double fz = 0.0;
-
-    double x = s.x[i];
-    double y = s.y[i];
-    double z = s.z[i];
-    double mass = s.mass[i];
-    
-    // loop thru every particle
-    for (size_t j = 0; j < s.nbpart; ++j) {
-      if (j == i) continue; // skip itself
-
-      // direction
-      double dx = s.x[j] - x;
-      double dy = s.y[j] - y;
-      double dz = s.z[j] - z;
-
-      // get distance
-      double dist_sq = dx*dx + dy*dy + dz*dz + softening;
-      double dist = std::sqrt(dist_sq);
-
-      //get magnitude
-      double F = G * mass * s.mass[j] / dist_sq;
-
-      // add total force
-      fx += F * dx / dist;
-      fy += F * dy / dist;
-      fz += F * dz / dist;
-    } });
+               apply_force(s, i, dt);
+               update_position(s, i, dt); });
 }
 
 int main(int argc, char *argv[])
@@ -307,6 +289,7 @@ int main(int argc, char *argv[])
 
     reset_force(s);
     compforces(s, omp);
+    paralelogram(s, dt, omp);
   }
 
   // dump_state(s);
