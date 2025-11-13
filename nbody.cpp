@@ -3,7 +3,9 @@
 #include <random>
 #include <cmath>
 #include <vector>
-#include <omp_loop.hpp>
+#include <string>
+#include <cstdlib>
+#include "omp_loop.hpp"
 
 double G = 6.674 * std::pow(10, -11);
 // double G = 1;
@@ -204,7 +206,7 @@ void load_from_file(simulation &s, std::string filename)
 
 void compforces(simulation &s, OmpLoop &omp)
 {
-  // using function provided
+  // Just gonna use the functions provided pt 1
   omp.parfor(0, s.nbpart, 1, [&](size_t to)
              {
     for (size_t from = 0; from < s.nbpart; ++from) {
@@ -215,7 +217,7 @@ void compforces(simulation &s, OmpLoop &omp)
 
 void paralelogram(simulation &s, double dt, OmpLoop &omp)
 {
-  // Just gonna use the functions provided
+  // Just gonna use the functions provided pt 2
   omp.parfor(0, s.nbpart, 1, [&](size_t i)
              {
                apply_force(s, i, dt);
