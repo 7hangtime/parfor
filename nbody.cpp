@@ -275,7 +275,6 @@ int main(int argc, char *argv[])
     if (step % printevery == 0)
       dump_state(s);
 
-    /* Commented out Sequential Loop
     reset_force(s);
     for (size_t i = 0; i < s.nbpart; ++i)
       for (size_t j = 0; j < s.nbpart; ++j)
@@ -287,11 +286,12 @@ int main(int argc, char *argv[])
       apply_force(s, i, dt);
       update_position(s, i, dt);
     }
-      */
 
+      /* parallel
     reset_force(s);
     compforces(s, omp);
     paralelogram(s, dt, omp);
+    */
   }
 
   // dump_state(s);
