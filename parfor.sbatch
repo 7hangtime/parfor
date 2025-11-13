@@ -18,13 +18,13 @@ echo "======================================"
 echo ""
 
 # Solar system 
-{ time ./nbody planet 200 5000000 10000 1 > solar.tsv; } 2>&1
+{ time ./nbody planet 200 5000000 10000 1 > solar_seq.tsv; } 2>&1
 
 # Random 100 particles
-{ time ./nbody 100 1 10000 100 1 > random100.tsv; } 2>&1
+{ time ./nbody 100 1 10000 100 1 > random100_seq.tsv; } 2>&1
 
 # Random 1000 particles
-{ time ./nbody 1000 1 10000 100 1 > random1000.tsv; } 2>&1
+{ time ./nbody 1000 1 10000 100 1 > random1000_seq.tsv; } 2>&1
 
 rm nbody
 
