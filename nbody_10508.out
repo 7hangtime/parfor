@@ -1,0 +1,21 @@
+g++ -O3 -fopenmp nbody.cpp -o nbody -fopenmp
+======================================
+ SLURM job information
+ Job ID: 10508
+ Job Name: nbody
+ Node: gal-c1
+ CPUs: 1
+======================================
+
+
+real	0m3.443s
+user	0m3.432s
+sys	0m0.001s
+
+real	0m0.742s
+user	0m0.734s
+sys	0m0.002s
+
+real	1m10.369s
+user	1m10.232s
+sys	0m0.005s
