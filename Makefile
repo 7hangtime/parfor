@@ -6,7 +6,7 @@ nbody: nbody.cpp omp_loop.hpp
 
 solar.out: nbody
 	date
-	./nbody planet 200 5000000 10000 1 > solar.out # maybe a minutes
+	./nbody planet 200 5000000 10000 16 > solar.out # maybe a minutes
 	date
 
 solar.pdf: solar.out
@@ -14,5 +14,5 @@ solar.pdf: solar.out
 
 random.out: nbody
 	date
-	./nbody 1000 1 10000 100 1 > random.out # maybe 5 minutes
+	./nbody 1000 1 10000 100 16 > random.out # maybe 5 minutes
 	date
